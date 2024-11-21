@@ -1,0 +1,39 @@
+[
+  {
+    "Nome": "Washingtonn",
+    "Pais": "USA",
+    "Pop": 3.3,
+    "Capital": "S"
+  },
+  {
+    "Nome": "Monterrey",
+    "Pais": "Mexico",
+    "Pop": 2.0,
+    "Capital": "N"
+  },
+  {
+    "Nome": "Brasilia",
+    "Pais": "Brasil",
+    "Pop": 1.5,
+    "Capital": "S"
+  },
+  {
+    "Nome": "São Paulo",
+    "Pais": "Brasil",
+    "Pop": 15.0,
+    "Capital": "N"
+  },
+  {
+    "Nome": "Ottawa",
+    "Pais": "Canada",
+    "Pop": 0.8,
+    "Capital": "S"
+  },
+  {
+    "Nome": "Cid.mexico",
+    "Pais": "Mexico",
+    "Pop": 14.1,
+    "Capital": "S"
+  }
+]
+

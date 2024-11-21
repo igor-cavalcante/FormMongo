@@ -1,0 +1,18 @@
+{
+  "name": "formmongo",
+  "version": "1.0.0",
+  "description": "form from connection on mongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "nodemon index.js"
+  },
+  "author": "igor-cavalcante",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongodb": "^6.10.0",
+    "mongoose": "^8.7.2",
+    "nodemon": "^3.1.7"
+  }
+}
