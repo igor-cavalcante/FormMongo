@@ -16,7 +16,7 @@ const cadastrarRio = async (req, res) => {
 
   try {
     const novoRio = new Rio({ Nome, Nascente, Pais, Comprimento });
-    await novoRio.save;
+    await novoRio.save();
     res.status(200).send("Dados salvos com sucesso");
   } catch (error) {
     console.error("Erro ao salvar dados ", error);
