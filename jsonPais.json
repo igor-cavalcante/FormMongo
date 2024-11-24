@@ -1,39 +1,30 @@
 [
   {
-    "Nome": "Washingtonn",
-    "Pais": "USA",
-    "Pop": 3.3,
-    "Capital": "S"
+    "Nome": "Canada",
+    "Continente": "Am. Norte",
+    "Pop": 30.1,
+    "PIB": 658,
+    "Expec_via": 77.08
   },
   {
-    "Nome": "Monterrey",
-    "Pais": "Mexico",
-    "Pop": 2.0,
-    "Capital": "N"
+    "Nome": "Mexico",
+    "Continente": "Am. Norte",
+    "Pop": 107.5,
+    "PIB": 694,
+    "Expec_via": 69.1
   },
   {
-    "Nome": "Brasilia",
-    "Pais": "Brasil",
-    "Pop": 1.5,
-    "Capital": "S"
+    "Nome": "Brasil",
+    "Continente": "Am. Sul",
+    "Pop": 183.3,
+    "PIB": 10004,
+    "Expec_via": 65.2
   },
   {
-    "Nome": "São Paulo",
-    "Pais": "Brasil",
-    "Pop": 15.0,
-    "Capital": "N"
-  },
-  {
-    "Nome": "Ottawa",
-    "Pais": "Canada",
-    "Pop": 0.8,
-    "Capital": "S"
-  },
-  {
-    "Nome": "Cid.mexico",
-    "Pais": "Mexico",
-    "Pop": 14.1,
-    "Capital": "S"
+    "Nome": "Usa",
+    "Continente": "Am. Norte",
+    "Pop": 270.0,
+    "PIB": 8003,
+    "Expec_via": 75.5
   }
 ]
-
