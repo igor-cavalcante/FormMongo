@@ -11,14 +11,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-const router = require("./src/routes/routes"); // Importar rotas
+const routerCidade = require("./src/routes/routerCidade"); // Importar rota cidade
+const routerPais = require("./src/routes/routerPais"); // Importar rota cidade
+const routerRio = require("./src/routes/routerRio"); // Importar rota cidade
 
 // Middleware para servir arquivos estáticos da pasta "src/public"
 app.use(express.static(path.join(__dirname, "src", "view")));
 
 
 
-app.use(router);
+app.use(routerCidade);
+app.use(routerPais);
+app.use(routerRio);
 
 connect
   .then(() => {

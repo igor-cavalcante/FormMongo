@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Editar Rio</title>
+<link rel="stylesheet" href="./css/templateedicao.css">
+
+<style>
+ 
+</style>
+<script>
+    // Carregar dados do Pais
+    async function carregarPais() {
+// Obter o ID diretamente do caminho da URL
+const pathParts = window.location.pathname.split("/");
+const id = pathParts[pathParts.length - 1];
+console.log("ID capturado da URL:", id); // Verifique se o ID está sendo capturado corretamente
+
+if (!id) {
+    alert("ID da cidade não encontrado na URL.");
+    return;
+}
+
+try {
+    const response = await fetch(`/carregarRio/${id}`);
+
+    if (!response.ok) {
+    throw new Error("Erro ao buscar dados da cidade");
+    }
+
+    const rio = await response.json();
+
+    console.log("Dados da cidade carregados:", rio); // Log dos dados carregados
+    document.getElementById("Nome").value = rio.Nome;
+    document.getElementById("Nascente").value = rio.Nascente;
+    document.getElementById("Pais").value = rio.Pais;
+    document.getElementById("Comprimento").value = rio.Comprimento;
+    document.getElementById("rio-id").value = rio._id
+} catch (error) {
+    console.error("Erro ao carregar os dados do Rio:", error);
+    alert("Erro ao carregar os dados.");
+}
+}
+
+    // Salvar alterações
+    async function salvarAlteracoes(event) {
+    event.preventDefault();
+
+    const id = document.getElementById("rio-id").value;
+    const Nome = document.getElementById("Nome").value;
+    const Nascente = document.getElementById("Nascente").value;
+    const Pais = document.getElementById("Pais").value;
+    const Comprimento = document.getElementById("Comprimento").value;
+
+    try {
+        const response = await fetch(`/editarRio/${id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({Nome, Nascente, Pais, Comprimento }),
+        });
+
+        if (response.ok) {
+        alert("Rio atualizado com sucesso!");
+        window.location.href = "/rio"; // Redireciona para a página inicial
+        } else {
+        alert("Erro ao atualizar a Rio.");
+        }
+    } catch (error) {
+        console.error("Erro ao salvar alterações:", error);
+        alert("Erro ao salvar alterações.");
+    }
+    }
+
+    document.addEventListener("DOMContentLoaded", carregarPais);
+</script>
+</head>
+<body>
+
+<form onsubmit="salvarAlteracoes(event)">
+    <h1>Editar Rio</h1>
+    <input type="hidden" id="rio-id" />
+  <!-- Campo para o Nome do País -->
+  <label for="Nome">Nome:</label>
+  <input
+        id="Nome"
+        name="Nome"
+        type="text"
+        placeholder="Digite o nome do rio"
+        required
+      />
+      <label for="Nascente">Nascente:</label>
+      <input
+        id="Nascente"
+        name="Nascente"
+        type="text"
+        placeholder="Digite a nascente"
+        required
+      />
+      <label for="Pais">País:</label>
+      <input
+        id="Pais"
+        name="Pais"
+        type="text"
+        placeholder="Digite o país"
+        required
+      />
+      <label for="Comprimento">Comprimento (km):</label>
+      <input
+        id="Comprimento"
+        name="Comprimento"
+        type="number"
+        placeholder="Digite o comprimento"
+        step="0.001"
+        required
+      />
+  <br>
+    <button type="submit">Salvar Alterações</button>
+</form>
+</body>
+</html>

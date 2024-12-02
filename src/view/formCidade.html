@@ -4,15 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cadastro de Cidades</title>
-  <link rel="stylesheet" href="./css/formCidade.css">
+  <link rel="stylesheet" href="./css/templateForm.css">
+
   <script>
 
     document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const sucesso = urlParams.get('sucesso');
+    const sucesso = urlParams.get('sucessoDelete');
 
-    if (sucesso === 'true') {
-      alert('Cidade deletada com sucesso!');
+    if (sucesso === "true") {
+    // Criar uma div para exibir a mensagem
+    const mensagemDiv = document.createElement("div");
+    mensagemDiv.textContent = "Cidade deletada com sucesso!";
+    mensagemDiv.style.position = "fixed";
+    mensagemDiv.style.top = "20px";
+    mensagemDiv.style.right = "20px";
+    mensagemDiv.style.padding = "10px 20px";
+    mensagemDiv.style.backgroundColor = "green";
+    mensagemDiv.style.color = "white";
+    mensagemDiv.style.borderRadius = "5px";
+    mensagemDiv.style.boxShadow = "0 4px 6px rgba(0,0,0,0.1)";
+    mensagemDiv.style.zIndex = "1000";
+
+    // Adicionar a div ao corpo da página
+    document.body.appendChild(mensagemDiv);
+
+    // Remover a mensagem após 3 segundos
+    setTimeout(() => {
+      mensagemDiv.remove();
+    }, 3000);
 
       // Limpar o parâmetro 'sucesso' da URL
       const urlWithoutSuccess = window.location.href.split('?')[0];
@@ -26,7 +46,7 @@
       try {
         const response = await fetch("/cidades");
         const cidades = await response.json();
-        const tableBody = document.getElementById("cidades-table-body");
+        const tableBody = document.getElementById("table-body");
         tableBody.innerHTML = "";
 
         cidades.forEach((cidade) => {
@@ -49,9 +69,16 @@
   </script>
 </head>
 <body>
+
+  <div id="navbar"></div> <!-- Div onde a navbar será incluída -->
+  <br>
+
+
+  
+    <!-- Conteúdo principal -->
   <h1>Cadastro e Lista de Cidades</h1>
   <div class="container">
-    <div class="table-cidades">
+    <div class="table">
       <h2>Lista de Cidades</h2>
       <table>
         <thead>
@@ -62,7 +89,7 @@
             <th>Capital</th>
           </tr>
         </thead>
-        <tbody id="cidades-table-body"></tbody>
+        <tbody id="table-body"></tbody>
       </table>
     </div>
 
@@ -103,5 +130,8 @@
       <button type="submit">Cadastrar</button>
     </form>
   </div>
+
+
+  <script src="navBar.js"></script>
 </body>
 </html>

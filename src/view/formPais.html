@@ -3,16 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cadastro de Cidades</title>
-  <link rel="stylesheet" href="./css/formCidade.css">
+  <title>Cadastro de Paises</title>
+  <link rel="stylesheet" href="./css/templateForm.css">
   <script>
-
     document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const sucesso = urlParams.get('sucesso');
+    const sucesso = urlParams.get('sucessoDelete');
 
-    if (sucesso === 'true') {
-      alert('Cidade deletada com sucesso!');
+    if (sucesso === "true") {
+    // Criar uma div para exibir a mensagem
+    const mensagemDiv = document.createElement("div");
+    mensagemDiv.textContent = "pais deletado com sucesso!";
+    mensagemDiv.style.position = "fixed";
+    mensagemDiv.style.top = "20px";
+    mensagemDiv.style.right = "20px";
+    mensagemDiv.style.padding = "10px 20px";
+    mensagemDiv.style.backgroundColor = "green";
+    mensagemDiv.style.color = "white";
+    mensagemDiv.style.borderRadius = "5px";
+    mensagemDiv.style.boxShadow = "0 4px 6px rgba(0,0,0,0.1)";
+    mensagemDiv.style.zIndex = "1000";
+
+    // Adicionar a div ao corpo da página
+    document.body.appendChild(mensagemDiv);
+
+    // Remover a mensagem após 3 segundos
+    setTimeout(() => {
+      mensagemDiv.remove();
+    }, 3000);
 
       // Limpar o parâmetro 'sucesso' da URL
       const urlWithoutSuccess = window.location.href.split('?')[0];
@@ -24,21 +42,22 @@
 
     async function fetchCidades() {
       try {
-        const response = await fetch("/cidades");
-        const cidades = await response.json();
-        const tableBody = document.getElementById("cidades-table-body");
+        const response = await fetch("/listarpaises");
+        const paises = await response.json();
+        const tableBody = document.getElementById("table-body");
         tableBody.innerHTML = "";
-
-        cidades.forEach((cidade) => {
+        console.log(paises);
+        paises.forEach((paises) => {
           const row = document.createElement("tr");
           row.innerHTML = `
         
-            <td>${cidade.Nome}</td>
-            <td>${cidade.Pais}</td>
-            <td>${cidade.Pop}</td>
-            <td>${cidade.Capital || "N/A"}</td>
-            <td><a href="/deletarCidade/${cidade._id}">Deletar</a></td>
-            <td><a href="/FormEdicaoCidade/${cidade._id}"">Editar</a></td>
+            <td>${paises.Nome}</td>
+            <td>${paises.Continente}</td>
+            <td>${paises.Pop}</td>
+            <td>${paises.PIB}</td>
+            <td>${paises.Expec_via}</td>
+            <td><a href="/deletarPais/${paises._id}">Deletar</a></td>
+            <td><a href="/FormEdicaoPais/${paises._id}"">Editar</a></td>
           `;
           tableBody.appendChild(row);
         });
@@ -49,59 +68,95 @@
   </script>
 </head>
 <body>
-  <h1>Cadastro e Lista de Cidades</h1>
+
+  <div id="navbar"></div> <!-- Div onde a navbar será incluída -->
+  <br>
+
+
+
+  
+  <h1>Cadastro e Lista de Paises</h1>
   <div class="container">
-    <div class="table-cidades">
-      <h2>Lista de Cidades</h2>
+    <div class="table">
+      <h2>Lista de Paises</h2>
       <table>
         <thead>
           <tr>
             <th>Nome</th>
-            <th>País</th>
-            <th>População</th>
-            <th>Capital</th>
+            <th>Continente</th>
+            <th>Pop</th>
+            <th>PIB</th>
+            <th>Expec_vida</th>
+            
           </tr>
         </thead>
-        <tbody id="cidades-table-body"></tbody>
+        <tbody id="table-body"></tbody>
       </table>
     </div>
 
-    <form action="/cadastrarCidade" method="post">
-      <h2>Cadastro de Cidades</h2>
-      <label for="Nome">Nome:</label>
-      <input
-        id="Nome"
-        name="Nome"
-        type="text"
-        placeholder="Digite o nome da cidade"
-        required
-      />
-      <label for="Pais">País:</label>
-      <input
-        id="Pais"
-        name="Pais"
-        type="text"
-        placeholder="Digite o país"
-        required
-      />
-      <label for="Pop">População:</label>
-      <input
-        id="Pop"
-        name="Pop"
-        type="number"
-        placeholder="Digite a população"
-        required
-      />
-      <label for="Capital">Capital:</label>
-      <input
-        id="Capital"
-        name="Capital"
-        type="text"
-        placeholder="Digite a capital (se aplicável)"
-        required
-      />
-      <button type="submit">Cadastrar</button>
-    </form>
+    <form action="/cadastrarPais" method="post">
+        <h2>Cadastro de País</h2>
+        
+        <!-- Campo para o Nome do País -->
+        <label for="Nome">Nome:</label>
+        <input
+          id="Nome"
+          name="Nome"
+          type="text"
+          placeholder="Digite o nome do país"
+          required
+        />
+        
+        <!-- Campo para o Continente -->
+        <label for="Continente">Continente:</label>
+        <input
+          id="Continente"
+          name="Continente"
+          type="text"
+          placeholder="Digite o continente"
+          required
+        />
+        
+        <!-- Campo para a População -->
+        <label for="Pop">População (em milhões):</label>
+        <input
+          id="Pop"
+          name="Pop"
+          type="number"
+          step="0.01"
+          placeholder="Digite a população"
+          required
+        />
+        
+        <!-- Campo para o PIB -->
+        <label for="PIB">PIB (em bilhões):</label>
+        <input
+          id="PIB"
+          name="PIB"
+          type="number"
+          step="0.01"
+          placeholder="Digite o PIB"
+          required
+        />
+        
+        <!-- Campo para a Expectativa de Vida -->
+        <label for="Expec_via">Expectativa de Vida:</label>
+        <input
+          id="Expec_via"
+          name="Expec_via"
+          type="number"
+          step="0.01"
+          placeholder="Digite a expectativa de vida"
+          required
+        />
+        
+        <!-- Botão de envio -->
+        <button type="submit">Cadastrar</button>
+      </form>
+      
   </div>
+
+
+  <script src="navBar.js"></script>
 </body>
 </html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Editar Pais</title>
+
+<style>
+    /* Estilo global */
+    body {
+       font-family: Arial, sans-serif;
+       background-color: #f4f4f4;
+       margin: 0;
+       padding: 0;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       flex-direction: column;
+       min-height: 100vh;
+   }
+
+   h1 {
+       color: #333;
+       text-align: center;
+       margin-bottom: 20px;
+   }
+
+   /* Estilo do formulário */
+   form {
+       background-color: #fff;
+       border-radius: 8px;
+       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+       padding: 20px;
+       max-width: 400px;
+       width: 100%;
+       margin: 20px;
+   }
+
+   label {
+       display: block;
+       margin-bottom: 8px;
+       font-weight: bold;
+       color: #555;
+   }
+
+   input[type="text"],
+   input[type="number"] {
+       width: calc(100% - 20px);
+       padding: 8px 10px;
+       margin-bottom: 15px;
+       border: 1px solid #ccc;
+       border-radius: 4px;
+       font-size: 16px;
+   }
+
+   input[type="text"]:focus,
+   input[type="number"]:focus {
+       border-color: #007bff;
+       outline: none;
+   }
+
+   button {
+       background-color: #007bff;
+       color: #fff;
+       padding: 10px;
+       border: none;
+       border-radius: 4px;
+       cursor: pointer;
+       width: 100%;
+       font-size: 16px;
+       font-weight: bold;
+       text-transform: uppercase;
+   }
+
+   button:hover {
+       background-color: #0056b3;
+   }
+
+   button:active {
+       background-color: #003d80;
+   }
+</style>
+<script>
+    // Carregar dados do Pais
+    async function carregarPais() {
+// Obter o ID diretamente do caminho da URL
+const pathParts = window.location.pathname.split("/");
+const id = pathParts[pathParts.length - 1];
+console.log("ID capturado da URL:", id); // Verifique se o ID está sendo capturado corretamente
+
+if (!id) {
+    alert("ID da cidade não encontrado na URL.");
+    return;
+}
+
+try {
+    const response = await fetch(`/carregarPais/${id}`);
+
+    if (!response.ok) {
+    throw new Error("Erro ao buscar dados da cidade");
+    }
+
+    const pais = await response.json();
+
+    console.log("Dados da cidade carregados:", pais); // Log dos dados carregados
+    document.getElementById("Nome").value = pais.Nome;
+    document.getElementById("Continente").value = pais.Continente;
+    document.getElementById("Pop").value = pais.Pop;
+    document.getElementById("PIB").value = pais.PIB;
+    document.getElementById("Expec_via").value = pais.Expec_via;
+    document.getElementById("pais-id").value = pais._id
+} catch (error) {
+    console.error("Erro ao carregar os dados da cidade:", error);
+    alert("Erro ao carregar os dados.");
+}
+}
+
+    // Salvar alterações
+    async function salvarAlteracoes(event) {
+    event.preventDefault();
+
+    const id = document.getElementById("pais-id").value;
+    const Nome = document.getElementById("Nome").value;
+    const Continente = document.getElementById("Continente").value;
+    const Pop = document.getElementById("Pop").value;
+    const PIB = document.getElementById("PIB").value;
+    const Expec_via = document.getElementById("Expec_via").value
+
+    try {
+        const response = await fetch(`/editarPais/${id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ Nome, Continente, Pop, PIB, Expec_via }),
+        });
+
+        if (response.ok) {
+        alert("Pais atualizado com sucesso!");
+        window.location.href = "/pais"; // Redireciona para a página inicial
+        } else {
+        alert("Erro ao atualizar a cidade.");
+        }
+    } catch (error) {
+        console.error("Erro ao salvar alterações:", error);
+        alert("Erro ao salvar alterações.");
+    }
+    }
+
+    document.addEventListener("DOMContentLoaded", carregarPais);
+</script>
+</head>
+<body>
+
+<form onsubmit="salvarAlteracoes(event)">
+    <h1>Editar Pais</h1>
+    <input type="hidden" id="pais-id" />
+  <!-- Campo para o Nome do País -->
+  <label for="Nome">Nome:</label>
+  <input
+    id="Nome"
+    name="Nome"
+    type="text"
+    placeholder="Digite o nome do país"
+    required
+  />
+  
+  <!-- Campo para o Continente -->
+  <label for="Continente">Continente:</label>
+  <input
+    id="Continente"
+    name="Continente"
+    type="text"
+    placeholder="Digite o continente"
+    required
+  />
+  
+  <!-- Campo para a População -->
+  <label for="Pop">População (em milhões):</label>
+  <input
+    id="Pop"
+    name="Pop"
+    type="number"
+    step="0.01"
+    placeholder="Digite a população"
+    required
+  />
+  
+  <!-- Campo para o PIB -->
+  <label for="PIB">PIB (em bilhões):</label>
+  <input
+    id="PIB"
+    name="PIB"
+    type="number"
+    step="0.01"
+    placeholder="Digite o PIB"
+    required
+  />
+  
+  <!-- Campo para a Expectativa de Vida -->
+  <label for="Expec_via">Expectativa de Vida:</label>
+  <input
+    id="Expec_via"
+    name="Expec_via"
+    type="number"
+    step="0.01"
+    placeholder="Digite a expectativa de vida"
+    required
+  />
+  <br>
+    <button type="submit">Salvar Alterações</button>
+</form>
+</body>
+</html>

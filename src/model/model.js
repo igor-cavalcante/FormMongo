@@ -12,10 +12,11 @@ const Cidade = mongoose.model("Cidade", SchemaCidade, "cidade");
 
 //Definição do Schem e Modelo Pais
 const SchemaPais = new mongoose.Schema({
-  Nome: { type: String, required: false },
-  Pais: { type: String, required: false },
-  Pop: { type: Number, required: false },
-  Capital: { type: String, required: false },
+  Nome: { type: String, required: true }, // Nome do país
+  Continente: { type: String, required: true }, // Continente ao qual pertence
+  Pop: { type: Number, required: true }, // População em milhões
+  PIB: { type: Number, required: true }, // Produto Interno Bruto em bilhões
+  Expec_via: { type: Number, required: true } // Expectativa de vida em anos
 });
 
 const Paises = mongoose.model("Pais", SchemaPais, "pais");

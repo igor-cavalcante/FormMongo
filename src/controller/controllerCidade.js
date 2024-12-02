@@ -39,7 +39,7 @@ const deletarCidade = async (req, res) => {
       return res.status(404).send("Cidade não encontrada.");
     }
     // Redirecionar para a rota raiz
-    res.redirect("/");
+    res.redirect("/"+"?sucessoDelete=true");
   } catch (error) {
     console.error("Erro ao deletar a cidade:", error);
     res.status(500).send("Erro ao deletar a cidade.");
@@ -61,6 +61,8 @@ const editarCidade = async (req, res) => {
       return res.status(404).send("Cidade não encontrada.");
     }
 
+
+    
     res.redirect("/"); // Redireciona para a lista de cidades após a edição
   } catch (error) {
     console.error("Erro ao editar a cidade:", error);
