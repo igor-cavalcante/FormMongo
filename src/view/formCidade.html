@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cadastro de Cidades</title>
-  <link rel="stylesheet" href="./css/templateForm.css">
-
+  <link rel="stylesheet" href="./css/templateForm.css?v=1.0">
+</head>
   <script>
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -40,6 +40,8 @@
     }
 
     fetchCidades();
+
+    fetchPaises();
   });
 
     async function fetchCidades() {
@@ -66,15 +68,30 @@
         console.error("Erro ao buscar cidades:", error);
       }
     }
+
+    async function fetchPaises() {
+  try {
+    const response = await fetch("/listarpaises"); // Endpoint para listar os países
+    const paises = await response.json();
+    const paisSelect = document.getElementById("Pais");
+
+    paises.forEach((pais) => {
+      const option = document.createElement("option");
+      option.value = pais.Nome; // Supondo que o campo do país seja 'Nome'
+      option.textContent = pais.Nome;
+      paisSelect.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Erro ao buscar países:", error);
+  }
+}
   </script>
-</head>
+
 <body>
 
   <div id="navbar"></div> <!-- Div onde a navbar será incluída -->
   <br>
 
-
-  
     <!-- Conteúdo principal -->
   <h1>Cadastro e Lista de Cidades</h1>
   <div class="container">
@@ -103,19 +120,24 @@
         placeholder="Digite o nome da cidade"
         required
       />
-      <label for="Pais">País:</label>
+      <!-- <label for="Pais">País:</label>
       <input
         id="Pais"
         name="Pais"
         type="text"
         placeholder="Digite o país"
         required
-      />
+      /> -->
+      <label for="Pais">País:</label>
+      <select id="Pais" name="Pais" required>
+        <option value="" disabled selected>Selecione um país</option>
+      </select>
       <label for="Pop">População:</label>
       <input
         id="Pop"
         name="Pop"
         type="number"
+        step="0.01"
         placeholder="Digite a população"
         required
       />
