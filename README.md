@@ -24,7 +24,7 @@ npm install
 3. Configure o MongoDB
 Opção 1: Usando uma instância local do MongoDB
 Certifique-se de que o MongoDB está em execução na sua máquina.
-Por padrão, o projeto está configurado para se conectar ao MongoDB local (mongodb://localhost:27017).
+Por padrão, o projeto está configurado para se conectar ao MongoDB local (mongodb://localhost:27017/Aula-10-10).
 Para configurar a URL do seu banco vá para o arquivo ./src/connect.js
 
 4. Execute o projeto
